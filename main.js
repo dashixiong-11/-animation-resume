@@ -53,9 +53,7 @@ var result2 = `
     padding:10px;
     border: 1px solid red;
 }
-/* 接下来用一个优秀的库 marked.js
-   把 Markdown 变成 HTML
- */
+
 `
 var markdown = `
 # 自我介绍
@@ -81,6 +79,9 @@ XXX 学校毕业
 
 `
 var result3 = `
+/* 接下来用一个优秀的库 marked.js
+   把 Markdown 变成 HTML
+ */
 /*
   这就是我的会动的简历
   谢谢观看
@@ -92,7 +93,7 @@ writeCode('', result, () => {
         writeCode(result, result2, () => {
             writeMarkdown(markdown, () => {
                 convertMarkdownToHtml(()=>{
-                    writeMarkdown(result+result2,result3,()=>{
+                    writeCode(result+result2,result3,()=>{
                         console.log('完成')
                     })
                 })
@@ -132,10 +133,11 @@ function writeMarkdown(mkdown, fn) {
     let id = setInterval(() => {
         n++
         domPaper.innerHTML = mkdown.substring(0, n)
-        domPaper.scrollTop = 1000000
+        console.log(mkdown.substring(0, n))
         if (n >= mkdown.length) {
+            console.log('1')
             window.clearInterval(id)
-           fn && fn.call()
+           fn.call()
         }
     }, 10)
 }
